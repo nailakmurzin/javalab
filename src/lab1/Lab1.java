@@ -96,11 +96,33 @@ public class Lab1 {
         System.out.println(D);
     }
 
+    public static void testPile() throws ItemStoreException {
+        Brick brick1 = new Brick("Кирпич1", 4.4, new String[]{"квадратный", "красный", "плоский"});
+        Book book1 = new Book("Книга1", 1, new String[]{"красная"}, "Бла - Бла -Бла блабла");
+        Bag bag1 = new Bag("Мешок 1", 9.1, new String[]{"серый"}, 0.02);
+        Bag bag2 = new Bag("Мешок 2", 4.1, new String[]{"серый"}, 0.01);
+
+        Pile pile = new Pile("Стопка 1", 3, new String[]{});
+        System.out.println("\nПОМЕЩЕНИЕ ОБЪЕКТА В СТОПКУ!");
+        System.out.println(pile);
+        try {
+            pile.addItem(brick1);
+            System.out.println(pile);
+            pile.addItem(book1);
+            System.out.println(pile);
+        } catch (ItemStoreException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         try {
             testBag();
             System.out.println("//////////////////////////////");
             testBrickBookNote();
+            System.out.println("//////////////////////////////");
+            testPile();
+            
         } catch (Exception e) {
             System.out.printf(e.getMessage());
         }

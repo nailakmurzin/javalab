@@ -1,6 +1,5 @@
 package lab1.Models;
 
-import lab1.Models.AbstractItem;
 import lab1.Exceptions.*;
 import java.util.*;
 
@@ -40,6 +39,15 @@ public abstract class AbstractStorage extends AbstractItem implements Iterable<A
             }
         }
         return null;
+    }
+
+    protected String items() {
+        String text = "{ ";
+        Iterator<AbstractItem> it = this.iterator();
+        while (it.hasNext()) {
+            text += it.next().getName() + " ";
+        }
+        return text + "}";
     }
 
 }
