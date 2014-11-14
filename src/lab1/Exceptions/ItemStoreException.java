@@ -12,6 +12,10 @@ public class ItemStoreException extends Exception {
         this();
         msg += _msg;
     }
+    
+    protected void addMessage(String _msg){
+        msg += _msg;
+    }
 
     @Override
     public String toString() {

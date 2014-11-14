@@ -110,6 +110,8 @@ public class Lab1 {
             System.out.println(pile);
             pile.addItem(book1);
             System.out.println(pile);
+            pile.addItem(bag1);
+            System.out.println(pile);
         } catch (ItemStoreException e) {
             System.out.println(e);
         }

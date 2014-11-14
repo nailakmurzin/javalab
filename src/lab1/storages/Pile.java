@@ -27,8 +27,9 @@ public class Pile extends AbstractStorage implements LimitedStorage {
         }
         if (this.itFits(_elem)) {
             return (this.items.push(_elem) != null);
+        } else {
+            throw new AddNotPerticulareItemException(_elem);
         }
-        return false;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class Pile extends AbstractStorage implements LimitedStorage {
 
     @Override
     public boolean itFits(AbstractItem _elem) {
-        return _elem != null && _elem.peculiar("плоский") && this.items.size() == this.maxCount;
+        return _elem != null && _elem.peculiar("плоский");
     }
 
     @Override
