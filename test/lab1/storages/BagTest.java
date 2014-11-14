@@ -5,14 +5,10 @@
  */
 package lab1.storages;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import lab1.Models.AbstractItem;
-import lab1.Exceptions.ItemAlreadyPlacedException;
-import lab1.Exceptions.ItemStoreException;
+import lab1.Exceptions.AddYourselfException;
+import lab1.Exceptions.ExcessWeightException;
+import lab1.Exceptions.NullAddItemException;
 import lab1.Items.*;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,24 +18,50 @@ import static org.junit.Assert.*;
  */
 public class BagTest {
 
-    public BagTest() {
-
+    public void testAddItem() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        Brick brick1 = new Brick("brick1", 3.4);
+        assertTrue(bag1.addItem(brick1));
+        assertFalse(bag1.addItem(brick1));
     }
 
+    @Test(expected = AddYourselfException.class)
+    public void testAddItemAddYourselfException() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        bag1.addItem(bag1);
+    }
 
+    @Test(expected = NullAddItemException.class)
+    public void testAddItemNullAddItemException() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        bag1.addItem(null);
+    }
 
-    /**
-     * Test of setMaxWeight method, of class Bag.
-     */
-    @Test
-    public void testInit() {
-//        System.out.println("#Тест класса МЕШОК");
-//        System.out.println(D);
-//        System.out.println(this.E);
+    @Test(expected = ExcessWeightException.class)
+    public void testAddItemExcessWeightException() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        Brick brick1 = new Brick("brick1", 30.4);
+        bag1.addItem(brick1);
     }
 
     @Test
-    public void testAddObject() throws ItemAlreadyPlacedException, ItemStoreException {
+    public void testPopItem() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        Brick brick1 = new Brick("brick1", 3.4);
+        assertEquals(null, bag1.popItem());
+        bag1.addItem(brick1);
+        assertEquals(brick1, bag1.popItem());
+    }
+
+    @Test
+    public void testMakeFlat() throws Exception {
+        Bag bag1 = new Bag("мешок1", 10.2, 0.3, "картофельный");
+        Brick brick1 = new Brick("brick1", 3.4, "плоский");
+        Brick brick2 = new Brick("brick2", 3.9);
+        bag1.addItem(brick1);
+        assertTrue(bag1.makeFlat());
+        bag1.addItem(brick2);
+        assertFalse(bag1.makeFlat());
     }
 
 }

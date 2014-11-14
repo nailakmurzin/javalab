@@ -5,6 +5,15 @@ import java.util.*;
 
 public abstract class AbstractStorage extends AbstractItem implements Iterable<AbstractItem>, Storage {
 
+    protected double getWeightContent() {
+        double summWeight = 0;
+        Iterator<AbstractItem> it = this.iterator();
+        while (it.hasNext()) {
+            summWeight += it.next().getWeight();
+        }
+        return summWeight;
+    }
+
     protected boolean captureItem(AbstractItem elem) {
         if (elem.getStorage() == null) {
             elem.setStorage(this);
@@ -17,8 +26,21 @@ public abstract class AbstractStorage extends AbstractItem implements Iterable<A
         elem.setStorage(null);
     }
 
+    protected String getItemsInfo() {
+        String text = "{ ";
+        Iterator<AbstractItem> it = this.iterator();
+        while (it.hasNext()) {
+            AbstractItem elem = it.next();
+            text += elem.getName() + "[" + elem.getWeight() + "]" + " ";
+        }
+        return text + "}";
+    }
+
     @Override
     public boolean addItem(AbstractItem _elem) throws ItemStoreException {
+        if (_elem == null) {
+            throw new NullAddItemException();
+        }
         if (_elem == this) {
             throw new AddYourselfException();
         }
@@ -41,13 +63,9 @@ public abstract class AbstractStorage extends AbstractItem implements Iterable<A
         return null;
     }
 
-    protected String items() {
-        String text = "{ ";
-        Iterator<AbstractItem> it = this.iterator();
-        while (it.hasNext()) {
-            text += it.next().getName() + " ";
-        }
-        return text + "}";
+    @Override
+    public double getWeight() {
+        return super.getWeight() + this.getWeightContent();
     }
 
 }

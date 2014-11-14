@@ -6,7 +6,7 @@ public class Book extends AbstractItem {
 
     protected String text;
 
-    public Book(String _name, double _weight, String[] array, String _text) {
+    public Book(String _name, double _weight, String _text, String... array) {
         this.init(_name, _weight, array);
         text = _text;
         this.addProperty("плоский");

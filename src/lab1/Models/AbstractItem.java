@@ -15,7 +15,7 @@ public abstract class AbstractItem {
         this.weight = 0;
     }
 
-    protected void init(String _name, double _weight, String[] array) {
+    protected void init(String _name, double _weight, String... array) {
         this.SetName(_name);
         this.setWeight(_weight);
         this.addProperties(array);
@@ -83,12 +83,6 @@ public abstract class AbstractItem {
     }
 
     public boolean peculiar(String property) {
-//        for (String p : this.properties) {
-//            if (p.equals(property)) {
-//                return true;
-//            }
-//        }
-//        return false;
         return properties.contains(property);
     }
 

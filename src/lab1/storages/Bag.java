@@ -13,16 +13,7 @@ public class Bag extends AbstractStorage implements LimitedStorage {
         maxWeight = _maxWeight;
     }
 
-    protected double getWeightContent() {
-        double summWeight = 0;
-        Iterator<AbstractItem> it = items.iterator();
-        while (it.hasNext()) {
-            summWeight += it.next().getWeight();
-        }
-        return summWeight;
-    }
-
-    public Bag(String _name, double _maxWeight, String[] array, double _weight) {
+    public Bag(String _name, double _maxWeight, double _weight, String... array) {
         maxWeight = _maxWeight;
         this.init(_name, _weight, array);
     }
@@ -40,7 +31,7 @@ public class Bag extends AbstractStorage implements LimitedStorage {
     }
 
     @Override
-    public AbstractItem getItem() {
+    public AbstractItem popItem() {
         if (this.items.isEmpty()) {
             return null;
         }
@@ -52,27 +43,8 @@ public class Bag extends AbstractStorage implements LimitedStorage {
     }
 
     @Override
-    public AbstractItem findItem(String _name) {
-        Iterator it = this.iterator();
-        while (it.hasNext()) {
-            AbstractItem elem = (AbstractItem) it.next();
-            if (elem.getName().equals(_name)) {
-                it.remove();
-                this.deleteItem(elem);
-                return elem;
-            }
-        }
-        return null;
-    }
-
-    @Override
     public Iterator iterator() {
         return this.items.iterator();
-    }
-
-    @Override
-    public double getWeight() {
-        return super.getWeight() + this.getWeightContent();
     }
 
     @Override
@@ -95,10 +67,8 @@ public class Bag extends AbstractStorage implements LimitedStorage {
     public String getInfo() {
         String s = super.getInfo();
         s += " Максимальный вес: " + this.maxWeight;
-        s += " Вес собственный : " + super.getWeight();
-        s += " Вес всего : " + this.getWeight();
         s += " Всего объектов : " + this.items.size();
-        s += " Объекты:" + this.items();
+        s += " Объекты:" + this.getItemsInfo();
         return s;
     }
 

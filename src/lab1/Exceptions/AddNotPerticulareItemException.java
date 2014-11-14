@@ -7,6 +7,6 @@ public class AddNotPerticulareItemException extends ItemStoreException {
     }
 
     public AddNotPerticulareItemException(lab1.Models.AbstractItem _elem) {
-        this.addMessage("Имя объекта"+_elem.getName());
+        this.addMessage("Имя объекта: "+_elem.getName());
     }
 }

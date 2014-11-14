@@ -7,8 +7,8 @@ public class Box extends Bag {
 
     private boolean enable;
 
-    public Box(String _name, double _maxWeight, String[] array, double _weight) {
-        super(_name, _maxWeight, array, _weight);
+    public Box(String _name, double _maxWeight, double _weight, String... array) {
+        super(_name, _maxWeight, _weight, array);
         enable = true;
         this.addProperty("плоский");
         this.addProperty("квадратный");

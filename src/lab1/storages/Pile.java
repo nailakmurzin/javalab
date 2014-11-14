@@ -9,7 +9,7 @@ public class Pile extends AbstractStorage implements LimitedStorage {
     private final Stack<AbstractItem> items = new Stack();
     private int maxCount = 0;
 
-    public Pile(String _name, int _maxCount, String[] array) {
+    public Pile(String _name, int _maxCount, String... array) {
         this.init(_name, 0, array);
         this.setMaxCount(_maxCount);
         this.addProperty("плоский");
@@ -33,21 +33,13 @@ public class Pile extends AbstractStorage implements LimitedStorage {
     }
 
     @Override
-    public AbstractItem getItem() {
-        return this.items.pop();
-    }
-
-    @Override
-    public AbstractItem findItem(String _name) {
-        Iterator it = this.iterator();
-        while (it.hasNext()) {
-            AbstractItem elem = (AbstractItem) it.next();
-            if (elem.getName().equals(_name)) {
-                it.remove();
-                return elem;
-            }
+    public AbstractItem popItem() {
+        if (this.items.isEmpty()) {
+            return null;
         }
-        return null;
+        AbstractItem it = this.items.pop();
+        this.deleteItem(it);
+        return it;
     }
 
     @Override
@@ -64,10 +56,8 @@ public class Pile extends AbstractStorage implements LimitedStorage {
     public String getInfo() {
         String s = super.getInfo();
         s += " Максимальное количество: " + this.maxCount;
-        s += " Вес собственный : " + super.getWeight();
-        s += " Вес всего : " + this.getWeight();
         s += " Всего объектов : " + this.items.size();
-        s += " Объекты:" + this.items();
+        s += " Объекты:" + this.getItemsInfo();
         return s;
     }
 

@@ -7,7 +7,7 @@ public interface Storage extends Iterable<AbstractItem> {
 
     public boolean addItem(AbstractItem _elem) throws ItemStoreException;
 
-    public AbstractItem getItem();
+    public AbstractItem popItem();
 
     public AbstractItem findItem(String _name);
 }
